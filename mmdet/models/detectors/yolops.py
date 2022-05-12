@@ -1,0 +1,22 @@
+import torch
+import torch.distributed as dist
+import torch.nn.functional as F
+from mmcv.runner import get_dist_info
+
+from ..builder import DETECTORS
+from .single_stage import SingleStageDetector
+
+@DETECTORS.register_module()
+class YOLOPS(SingleStageDetector):
+    r"""Implementation of `You Only Look One-level Feature
+    <https://arxiv.org/abs/2103.09460>`_"""
+
+    def __init__(self,
+                 backbone,
+                 neck,
+                 det_head,
+                 train_cfg=None,
+                 test_cfg=None,
+                 pretrained=None):
+        super(YOLOPS, self).__init__(backbone, neck, det_head, train_cfg,
+                                    test_cfg, pretrained)
